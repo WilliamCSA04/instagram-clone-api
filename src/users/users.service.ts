@@ -5,6 +5,7 @@ import { compareSync, genSaltSync, hashSync } from 'bcrypt';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { User, UserDocument } from './users.schema';
+import { LoginUserDto } from './dto/login-user.dto';
 
 @Injectable()
 export class UsersService {
@@ -16,14 +17,15 @@ export class UsersService {
     return newUser.save();
   }
 
-  async findAll(): Promise<User[]> {
-    return this.userModel.find().exec();
+  async login(loginUserDto: LoginUserDto) {
+    const user = await this.userModel.findOne({
+      username: loginUserDto.username,
+    });
+    return { authenticated: compareSync(loginUserDto.password, user.password) };
   }
 
-  findOne(id: number) {
-    // LOGIN CODE
-    // const match = compareSync(password, hash)
-    return `This action returns a #${id} user`;
+  async findAll(): Promise<User[]> {
+    return this.userModel.find().exec();
   }
 
   update(id: number, updateUserDto: UpdateUserDto) {
