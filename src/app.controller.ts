@@ -14,7 +14,7 @@ export class AppController {
   getHello(): string {
     return this.appService.getHello();
   }
-  // TODO: Continue from: https://docs.nestjs.com/security/authentication#implementing-passport-jwt
+
   @UseGuards(LocalAuthGuard)
   @Post('/login')
   async login(@Request() req) {
