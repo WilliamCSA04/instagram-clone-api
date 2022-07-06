@@ -20,4 +20,10 @@ export class AppController {
   async login(@Request() req) {
     return this.authService.login(req.user);
   }
+
+  // @Post('upload')
+  // @UseInterceptors(FileInterceptor('file'))
+  // uploadFile(@UploadedFile() file: Express.Multer.File) {
+  //   console.log(file);
+  // }
 }
