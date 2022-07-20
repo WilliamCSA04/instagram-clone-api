@@ -1,15 +1,31 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+  UseInterceptors,
+  UploadedFiles,
+} from '@nestjs/common';
 import { PostsService } from './posts.service';
 import { CreatePostDto } from './dto/create-post.dto';
 import { UpdatePostDto } from './dto/update-post.dto';
+import { FileFieldsInterceptor } from '@nestjs/platform-express';
 
 @Controller('posts')
 export class PostsController {
   constructor(private readonly postsService: PostsService) {}
 
-  @Post()
-  create(@Body() createPostDto: CreatePostDto) {
-    return this.postsService.create(createPostDto);
+  @Post('/file')
+  @UseInterceptors(FileFieldsInterceptor([{ name: 'file', maxCount: 1 }]))
+  createFile(
+    @UploadedFiles()
+    files: CreatePostDto,
+  ) {
+    const { file } = files;
+    return this.postsService.create({ file });
   }
 
   @Get()
