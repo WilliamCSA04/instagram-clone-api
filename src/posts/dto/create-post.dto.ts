@@ -1,3 +1,4 @@
 export class CreatePostDto {
-  file: Express.Multer.File[];
+  id: number;
+  description: string;
 }

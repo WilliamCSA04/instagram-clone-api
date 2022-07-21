@@ -1,6 +1,7 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { SUPABASE_BUCKETS } from 'src/supabase/constants';
 import { SupabaseService } from 'src/supabase/supabase.service';
+import { CreateFilePostDto } from './dto/create-file-post.dto';
 import { CreatePostDto } from './dto/create-post.dto';
 import { UpdatePostDto } from './dto/update-post.dto';
 import { PostsRepository } from './posts.repository';
@@ -13,6 +14,10 @@ export class PostsService {
   ) {}
 
   async create(createPostDto: CreatePostDto) {
+    return this.postsRepository.insertPost(createPostDto);
+  }
+
+  async createFile(createPostDto: CreateFilePostDto) {
     const { file } = createPostDto;
     const postFile = file[0];
 

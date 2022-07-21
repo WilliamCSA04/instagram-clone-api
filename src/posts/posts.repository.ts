@@ -2,6 +2,7 @@ import { Injectable, OnModuleInit } from '@nestjs/common';
 import { mapping } from 'cassandra-driver';
 import { Posts } from './posts.model';
 import { CassandraService } from '../cassandra/cassandra.service';
+import { CreatePostDto } from './dto/create-post.dto';
 
 @Injectable()
 export class PostsRepository implements OnModuleInit {
@@ -27,5 +28,9 @@ export class PostsRepository implements OnModuleInit {
 
   async getPosts() {
     return (await this.postsMapper.findAll()).toArray();
+  }
+
+  async insertPost(createPostDto: CreatePostDto) {
+    return this.postsMapper.insert(createPostDto);
   }
 }
