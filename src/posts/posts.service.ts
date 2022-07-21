@@ -1,16 +1,16 @@
-import {
-  BadRequestException,
-  Injectable,
-  UnprocessableEntityException,
-} from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { SUPABASE_BUCKETS } from 'src/supabase/constants';
 import { SupabaseService } from 'src/supabase/supabase.service';
 import { CreatePostDto } from './dto/create-post.dto';
 import { UpdatePostDto } from './dto/update-post.dto';
+import { PostsRepository } from './posts.repository';
 
 @Injectable()
 export class PostsService {
-  constructor(private supabaseService: SupabaseService) {}
+  constructor(
+    private supabaseService: SupabaseService,
+    private postsRepository: PostsRepository,
+  ) {}
 
   async create(createPostDto: CreatePostDto) {
     const { file } = createPostDto;
@@ -29,7 +29,7 @@ export class PostsService {
   }
 
   findAll() {
-    return `This action returns all posts`;
+    return this.postsRepository.getPosts();
   }
 
   findOne(id: number) {

@@ -6,6 +6,7 @@ import { UsersModule } from './users/users.module';
 import { ConfigModule } from '@nestjs/config';
 import { AuthModule } from './auth/auth.module';
 import { PostsModule } from './posts/posts.module';
+import { CassandraModule } from './cassandra/cassandra.module';
 @Module({
   imports: [
     UsersModule,
@@ -13,6 +14,7 @@ import { PostsModule } from './posts/posts.module';
     MongooseModule.forRoot(process.env.DATABASE_URL),
     AuthModule,
     PostsModule,
+    CassandraModule,
   ],
   controllers: [AppController],
   providers: [AppService],

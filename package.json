@@ -31,6 +31,7 @@
     "@nestjs/platform-express": "^8.0.0",
     "@supabase/supabase-js": "^1.35.4",
     "bcrypt": "^5.0.1",
+    "cassandra-driver": "^4.6.4",
     "csurf": "^1.11.0",
     "mongoose": "^6.4.1",
     "passport": "^0.6.0",

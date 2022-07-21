@@ -1,0 +1,5 @@
+export class Posts {
+  id: number;
+  description: string;
+  photo: string;
+}
